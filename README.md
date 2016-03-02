@@ -1,2 +1,2 @@
-# udacityProject
-Udacity projects
+# udacityProjects
+This will contain udacity projects
