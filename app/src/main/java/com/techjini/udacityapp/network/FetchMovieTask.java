@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by Shweta on 2/27/16.
  */
-public class FetchMovieTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
+public class FetchMovieTask extends AsyncTask<String, Void, ArrayList<Movie>> {
 
     private FetchMovieListener movieListener;
     private int responseCode;
@@ -31,10 +31,11 @@ public class FetchMovieTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
     }
 
     @Override
-    protected ArrayList<Movie> doInBackground(Void... params) {
+    protected ArrayList<Movie> doInBackground(String... params) {
 
-        Uri requestUri = Uri.parse(AppConstants.MOVIE_BASE_URL).buildUpon().appendQueryParameter(AppConstants.API_KEY_PARAM, AppConstants.THE_MOVIE_APP_KEY).build();
-
+        String sortParameter = params[0];
+        Uri requestUri = Uri.parse(AppConstants.MOVIE_BASE_URL).buildUpon().appendQueryParameter(AppConstants.API_KEY_PARAM, AppConstants.THE_MOVIE_APP_KEY).appendQueryParameter(AppConstants.SORT_PARAM, sortParameter).build();
+        AppLogger.d(this, "sort parameter is :" + sortParameter);
         HttpURLConnection httpURLConnection = null;
         BufferedReader reader = null;
         try {
@@ -67,6 +68,7 @@ public class FetchMovieTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
                 }
 
                 movieJSONStr = buffer.toString();
+                AppLogger.d(this, "response of movie based on the filetr :" + movieJSONStr);
                 ArrayList<Movie> movies = MovieJsonParser.getMoviesFromJson(movieJSONStr);
                 inputStream.close();
 

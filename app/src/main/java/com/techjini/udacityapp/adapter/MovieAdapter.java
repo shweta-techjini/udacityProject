@@ -66,8 +66,15 @@ public class MovieAdapter extends BaseAdapter {
             itemView = (ImageView) convertView;
         }
 
-        String imageUrl = movieArrayList.get(position).getPoster_path();
-        Picasso.with(mContext).load(imageUrl).into(itemView);
+        if (movieArrayList.get(position).getPoster_path()!=null){
+            String imageUrl = movieArrayList.get(position).getPoster_path();
+            Picasso.with(mContext)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.movie_placeholder)
+                    .error(R.drawable.movie_placeholder)
+                    .into(itemView);
+        }
+//        Picasso.with(mContext).load(imageUrl).into(itemView);
         return itemView;
     }
 }

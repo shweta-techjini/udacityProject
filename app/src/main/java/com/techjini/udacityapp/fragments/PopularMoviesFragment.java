@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.techjini.udacityapp.R;
 import com.techjini.udacityapp.activity.DetailMovieActivity;
@@ -26,6 +25,9 @@ import com.techjini.udacityapp.utility.AppLogger;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * A placeholder fragment containing a simple view.
  *
@@ -33,10 +35,10 @@ import java.util.ArrayList;
  */
 public class PopularMoviesFragment extends Fragment implements FetchMovieListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
-    private GridView gridView;
+    @Bind(R.id.grid_view_movies) GridView gridView;
+    @Bind(R.id.refresh_error_message) Button mError;
+    @Bind(R.id.progress_bar) ProgressBar mProgress;
     private MovieAdapter movieAdapter;
-    private Button mError;
-    private ProgressBar mProgress;
 
     public PopularMoviesFragment() {
     }
@@ -51,13 +53,14 @@ public class PopularMoviesFragment extends Fragment implements FetchMovieListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_popular_movies, container, false);
+        ButterKnife.bind(this, view);
 
-        gridView = (GridView) view.findViewById(R.id.grid_view_movies);
-        mError = (Button) view.findViewById(R.id.refresh_error_message);
-        mProgress = (ProgressBar) view.findViewById(R.id.progress_bar);
+//        gridView = (GridView) view.findViewById(R.id.grid_view_movies);
+//        mError = (Button) view.findViewById(R.id.refresh_error_message);
+//        mProgress = (ProgressBar) view.findViewById(R.id.progress_bar);
 
         FetchMovieTask fetchMovieTask = new FetchMovieTask(this);
-        fetchMovieTask.execute();
+        fetchMovieTask.execute(AppConstants.SORT_POPULAR_PARAM);
 
         mError.setOnClickListener(this);
         movieAdapter = new MovieAdapter(this.getActivity());
@@ -73,7 +76,18 @@ public class PopularMoviesFragment extends Fragment implements FetchMovieListene
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(this.getContext(), "Menu option clicked", Toast.LENGTH_SHORT).show();
+
+        switch (item.getItemId()){
+            case R.id.action_popular:
+                FetchMovieTask fetchPopularMovie = new FetchMovieTask(this);
+                fetchPopularMovie.execute(AppConstants.SORT_POPULAR_PARAM);
+                break;
+            case R.id.action_rating:
+                FetchMovieTask fetchMovieTask = new FetchMovieTask(this);
+                fetchMovieTask.execute(AppConstants.SORT_RATING_PARAM);
+                break;
+        }
+//        Toast.makeText(this.getContext(), "Menu option clicked", Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
 
@@ -100,6 +114,10 @@ public class PopularMoviesFragment extends Fragment implements FetchMovieListene
 
     @Override
     public void showProgressDialog() {
+        if (movieAdapter != null){
+            movieAdapter.setMovieArrayList(null);
+            movieAdapter.notifyDataSetChanged();
+        }
         mProgress.setVisibility(View.VISIBLE);
     }
 
@@ -118,7 +136,7 @@ public class PopularMoviesFragment extends Fragment implements FetchMovieListene
     public void onClick(View v) {
         AppLogger.d(this, "resend the request to get the movies.");
         FetchMovieTask fetchMovieTask = new FetchMovieTask(this);
-        fetchMovieTask.execute();
+        fetchMovieTask.execute(AppConstants.SORT_POPULAR_PARAM);
         mError.setVisibility(View.GONE);
     }
 }

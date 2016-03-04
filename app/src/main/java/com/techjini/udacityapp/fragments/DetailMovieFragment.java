@@ -31,12 +31,12 @@ public class DetailMovieFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail_movie, container, false);
 
-        TextView movieTitle = (TextView) view.findViewById(R.id.movie_title);
         ImageView backDrop = (ImageView) view.findViewById(R.id.backdrop_image);
+        TextView movieTitle = (TextView) view.findViewById(R.id.movie_title);
         TextView releaseDate = (TextView) view.findViewById(R.id.txt_year);
         TextView rating = (TextView) view.findViewById(R.id.txt_rating);
         TextView description = (TextView) view.findViewById(R.id.txt_description);
-        TextView language = (TextView) view.findViewById(R.id.txt_lang);
+        TextView popularity = (TextView) view.findViewById(R.id.txt_lang);
         TextView voteCount = (TextView) view.findViewById(R.id.txt_vote_count);
 
         Bundle bundle = getArguments();
@@ -51,7 +51,7 @@ public class DetailMovieFragment extends Fragment {
         releaseDate.setText(getString(R.string.released_on, movie.getRelease_date()));
         rating.setText(getString(R.string.vote_avg, movie.getVote_average()));
         description.setText(movie.getOverview());
-        language.setText(getString(R.string.language, movie.getOriginal_language()));
+        popularity.setText(getString(R.string.popularity, movie.getPopularity()));
         voteCount.setText(getString(R.string.vote_count, movie.getVoteCount()));
 
         Picasso.with(this.getContext()).load(movie.getPoster_path()).into(backDrop);

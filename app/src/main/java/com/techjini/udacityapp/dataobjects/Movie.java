@@ -76,6 +76,10 @@ public class Movie implements Parcelable {
         }
     }
 
+    public double getPopularity() {
+        return popularity;
+    }
+
     public void setPoster_path(String poster_path) {
         this.poster_path = poster_path;
     }

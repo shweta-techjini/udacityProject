@@ -6,12 +6,15 @@ package com.techjini.udacityapp.utility;
 public class AppConstants {
 
     public static final String MOVIE_BASE_URL = "http://api.themoviedb.org/3/discover/movie?";
-    public static final String THE_MOVIE_APP_KEY = "Replace your API Key";
+    public static final String THE_MOVIE_APP_KEY = "Your Key";
 
     public static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w342";
 
     // Movie Request Params
     public static final String API_KEY_PARAM = "api_key";
+    public static final String SORT_PARAM = "sort_by";
+    public static final String SORT_POPULAR_PARAM = "popularity.desc";
+    public static final String SORT_RATING_PARAM = "vote_average.desc";
 
     // Json parser string constants
     public static final String RESULTS = "results";
