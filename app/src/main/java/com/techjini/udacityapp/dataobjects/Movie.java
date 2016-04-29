@@ -3,11 +3,14 @@ package com.techjini.udacityapp.dataobjects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.techjini.udacityapp.utility.AppConstants;
 
 /**
  * Created by Shweta on 2/27/16.
  */
+@DatabaseTable
 public class Movie implements Parcelable {
 
     /*"poster_path": "/inVq3FRqcYIRl2la8iZikYYxFNR.jpg"
@@ -29,18 +32,32 @@ public class Movie implements Parcelable {
             "video": false
             "vote_average": 7.33*/
 
+    @DatabaseField
     private String title; // Title and Original title both are same
+    @DatabaseField
     private String poster_path;
+    @DatabaseField
     private String overview;
+    @DatabaseField
     private String release_date;
+    @DatabaseField
     private String original_language;
+    @DatabaseField
     private String backdrop_path;
+    @DatabaseField
     private String vote_average;
+    @DatabaseField
     private double popularity;
+    @DatabaseField
     private long vote_count;
+    @DatabaseField
     private boolean video;
+    @DatabaseField
     private boolean adult;
+    @DatabaseField
     private int id;
+    @DatabaseField
+    private boolean isFav;
 
     public Movie() {
 
@@ -58,6 +75,7 @@ public class Movie implements Parcelable {
         popularity = in.readDouble();
         vote_count = in.readLong();
         adult = in.readByte() != 0;
+        isFav = in.readByte() != 0;
     }
 
     public String getTitle() {
@@ -143,6 +161,14 @@ public class Movie implements Parcelable {
         this.vote_average = vote_average;
     }
 
+    public boolean isFav() {
+        return isFav;
+    }
+
+    public void setIsFav(boolean isFav) {
+        this.isFav = isFav;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -161,6 +187,7 @@ public class Movie implements Parcelable {
         dest.writeDouble(popularity);
         dest.writeLong(vote_count);
         dest.writeByte((byte) (adult ? 1 : 0));
+        dest.writeByte((byte) (isFav ? 1 : 0));
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {

@@ -32,6 +32,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PopularMovies"/>
         </activity>
+        <provider
+            android:authorities="com.techjini.udacityapp"
+            android:name=".database.MovieProvider"></provider>
     </application>
 
 </manifest>
