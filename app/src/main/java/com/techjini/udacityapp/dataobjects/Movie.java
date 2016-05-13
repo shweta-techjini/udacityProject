@@ -54,7 +54,7 @@ public class Movie implements Parcelable {
     private boolean video;
     @DatabaseField
     private boolean adult;
-    @DatabaseField
+    @DatabaseField(id = true)
     private int id;
     @DatabaseField
     private boolean isFav;
@@ -110,9 +110,10 @@ public class Movie implements Parcelable {
         return overview;
     }
 
-    public long getVoteCount(){
+    public long getVoteCount() {
         return vote_count;
     }
+
     public String getOriginal_language() {
         return original_language;
     }

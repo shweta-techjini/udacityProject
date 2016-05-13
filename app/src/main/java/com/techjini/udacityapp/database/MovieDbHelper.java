@@ -8,6 +8,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.techjini.udacityapp.dataobjects.Movie;
+import com.techjini.udacityapp.utility.AppConstants;
 import com.techjini.udacityapp.utility.AppLogger;
 
 import java.sql.SQLException;
@@ -59,8 +60,20 @@ public class MovieDbHelper extends OrmLiteSqliteOpenHelper {
         return movieDao;
     }
 
+    public boolean isMovieFav(int id) throws SQLException {
+
+        Movie movie = getMovieDao().queryForId(id);
+        return (movie != null) ? true : false;
+    }
+
     public boolean insertMovie(Movie movie) throws SQLException {
-        int count = getMovieDao().create(movie);
+        boolean idExists = getMovieDao().idExists(movie.getId());
+        int count;
+        if (idExists) {
+            count = getMovieDao().update(movie);
+        } else {
+            count = getMovieDao().create(movie);
+        }
         return count > 0 ? true : false;
     }
 
@@ -69,7 +82,16 @@ public class MovieDbHelper extends OrmLiteSqliteOpenHelper {
         return count > 0 ? true : false;
     }
 
+    public ArrayList<Movie> getFavMovies() throws SQLException {
+        return (ArrayList<Movie>) getMovieDao().queryForEq(AppConstants.IS_FAV, true);
+    }
+
     public ArrayList<Movie> getAllMovies() throws SQLException {
         return (ArrayList<Movie>) getMovieDao().queryForAll();
+    }
+
+    public boolean deleteMovie(int id) throws SQLException {
+        int count = getMovieDao().deleteById(id);
+        return count > 0 ? true : false;
     }
 }

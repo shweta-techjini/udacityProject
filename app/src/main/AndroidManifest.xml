@@ -15,7 +15,6 @@
         <activity
             android:name=".activity.PopularMovies"
             android:label="@string/title_activity_popular_movies"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -32,9 +31,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PopularMovies"/>
         </activity>
+
         <provider
-            android:authorities="com.techjini.udacityapp"
-            android:name=".database.MovieProvider"></provider>
+            android:name=".database.MovieProvider"
+            android:authorities="com.techjini.udacityapp"></provider>
     </application>
 
 </manifest>

@@ -20,9 +20,6 @@ public class MovieProvider extends ContentProvider {
 
     static final int MOVIE = 100;
     static final int MOVIE_ID = 200;
-//    static final int WEATHER_WITH_LOCATION = 101;
-//    static final int WEATHER_WITH_LOCATION_AND_DATE = 102;
-//    static final int LOCATION = 300;
 
     private static final SQLiteQueryBuilder sMovieQueryBuilder;
 

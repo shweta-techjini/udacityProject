@@ -3,6 +3,7 @@
     <string name="app_name">Popular Movies</string>
     <string name="action_most_popular">Most Popular</string>
     <string name="action_highest_rating">Highest Rating</string>
+    <string name="action_fav_mark">Favourite</string>
     <string name="title_activity_popular_movies">PopularMovies</string>
 
     <string name="refresh_on_error">Tap here to try again!</string>
@@ -11,4 +12,10 @@
     <string name="vote_avg">Average Vote - %1$s/10</string>
     <string name="vote_count">Vote Count - %1$s</string>
     <string name="popularity">Popularity - %1$s</string>
+
+    <string name="unknown">Unknown</string>
+    <string name="trailers_title">Trailers</string>
+    <string name="default_trailer_name">Trailer %1$s</string>
+    <string name="reviews_title">Reviews</string>
+    <string name="no_results">No results found!</string>
 </resources>

@@ -32,6 +32,10 @@ public class MovieAdapter extends BaseAdapter {
         this.movieArrayList = movies;
     }
 
+    public ArrayList<Movie> getMovieArrayList(){
+        return this.movieArrayList;
+    }
+
     @Override
     public int getCount() {
         if (movieArrayList == null) {
